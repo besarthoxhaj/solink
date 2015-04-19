@@ -48,6 +48,19 @@ describe('Service "ShareLink" Email', function (){
 		expect(decodeURI(url_single)).to.equal('mailto:?body='+data_single.body);
 		expect(decodeURI(url_double)).to.equal('mailto:?body='+data_double.body);
 	});
+	it('should create an entire entity', function (){
+		var optsMail = {
+			to:      'someone@foo.bar',
+			cc:      'sometwo@bar.foo',
+			bcc:     'anotherone@bar.foo',
+			subject: 'Some "subject" text here',
+			body:    "Some body 'message' here"
+		};
+
+		var url = shareLink.email(optsMail);
+
+		expect(url).to.equal("mailto:someone@foo.bar?cc=sometwo@bar.foo&bcc=anotherone@bar.foo&subject=Some%20%22subject%22%20text%20here&body=Some%20body%20'message'%20here");
+	});
 });
 
 
