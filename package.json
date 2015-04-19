@@ -1,5 +1,5 @@
 {
-  "name": "share-link",
+  "name": "solink",
   "version": "1.0.0",
   "description": "Small module for creating share urls",
   "main": "index.js",
@@ -9,8 +9,12 @@
   "scripts": {
     "test": "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha -- --recursive -R dot"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/besarthoxhaj/solink"
+  },
   "author": "Besart Hoxhaj",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "chai": "^2.2.0",
     "istanbul": "^0.3.13"
