@@ -28,25 +28,12 @@ describe('Service "ShareLink" Email', function (){
 
 		expect(url).to.equal('mailto:besartshyti@gmail.com?cc=foo@bar.com&bcc=zoo@goo.com');
 	});
-	it('should escape the subject field', function (){
-		var dataSingle = {subject: 'This are some quotes'};
-		var dataDouble = {subject: 'This are "some" quotes'};
+	it('should escape the subject and body field', function (){
+		var dataDouble = {subject: 'This are "some" quotes', body: 'This are "some" quotes'};
 
-		var urlSingle = shareLink.email(dataSingle);
 		var urlDouble = shareLink.email(dataDouble);
 
-		expect(decodeURI(urlSingle)).to.equal('mailto:?subject='+dataSingle.subject);
-		expect(decodeURI(urlDouble)).to.equal('mailto:?subject='+dataDouble.subject);
-	});
-	it('should escape the body field', function (){
-		var dataSingle = {body: 'This are "some" quotes'};
-		var dataDouble = {body: 'This are "some" quotes'};
-
-		var urlSingle = shareLink.email(dataSingle);
-		var urlDouble = shareLink.email(dataDouble);
-
-		expect(decodeURI(urlSingle)).to.equal('mailto:?body='+dataSingle.body);
-		expect(decodeURI(urlDouble)).to.equal('mailto:?body='+dataDouble.body);
+		expect(urlDouble).to.equal('mailto:?subject=This%20are%20%22some%22%20quotes&body=This%20are%20%22some%22%20quotes');
 	});
 	it('should create an entire entity', function (){
 		var optsMail = {
