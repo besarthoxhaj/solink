@@ -22,12 +22,12 @@ module.exports = {
  */
 
 function facebook (data){
-	if(!is.ok(data)) throw new ReferenceError('Can not process empty data.');
+	if(!is.ok(data)){throw new ReferenceError('Can not process empty data.');}
 
-	var url = "https://www.facebook.com/share.php?u=" + encodeURIComponent(data.url);
+	var url = 'https://www.facebook.com/share.php?u=' + encodeURIComponent(data.url);
 
 	return url;
-};
+}
 
 
 
@@ -46,7 +46,7 @@ function facebook (data){
  */
 
 function twitter (data){
-	if(!is.ok(data)) throw new ReferenceError('Can not process empty data.');
+	if(!is.ok(data)){ throw new ReferenceError('Can not process empty data.');}
 
 	var params = [];
 
@@ -59,7 +59,7 @@ function twitter (data){
 	var url = 'https://twitter.com/share?'+ params.join('&');
 
 	return url;
-};
+}
 
 
 
@@ -79,15 +79,21 @@ function twitter (data){
  */
 
 function email (data){
-	if(!is.ok(data)) throw new ReferenceError('Can not process empty data.');
+	if(!is.ok(data)){ throw new ReferenceError('Can not process empty data.');}
 	var params  = [];
-	var to      = data.hasOwnProperty('to')      && is.ok(data.to)      ? data.to                                                    : '';
-	var cc      = data.hasOwnProperty('cc')      && is.ok(data.cc)      ? params.push('cc='      + data.cc)                          : false;
-	var bcc     = data.hasOwnProperty('bcc')     && is.ok(data.bcc)     ? params.push('bcc='     + data.bcc)                         : false;
-	var subject = data.hasOwnProperty('subject') && is.ok(data.subject) ? params.push('subject=' + encodeURIComponent(data.subject)) : false;
-	var body    = data.hasOwnProperty('body')    && is.ok(data.body)    ? params.push('body='    + encodeURIComponent(data.body))    : false;
+	var to      = data.hasOwnProperty('to') && is.ok(data.to) ? data.to : '';
+
+	for(var key in data){
+		if(data.hasOwnProperty(key) && is.ok(data[key]) && key !== 'to'){
+			if(key !== 'cc' && key !== 'bcc'){
+				params.push(key + '=' + encodeURIComponent(data[key]));
+			}else{
+				params.push(key + '=' + data[key]);
+			}
+		}
+	}
 
 	var url = 'mailto:' + to + '?' + params.join('&');
 
 	return url;
-};
+}

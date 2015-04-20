@@ -3,7 +3,7 @@
 
 
 var root      = __dirname + '/../';
-var expect    = require("chai").expect;
+var expect    = require('chai').expect;
 var shareLink = require(root + 'index');
 
 
@@ -29,24 +29,24 @@ describe('Service "ShareLink" Email', function (){
 		expect(url).to.equal('mailto:besartshyti@gmail.com?cc=foo@bar.com&bcc=zoo@goo.com');
 	});
 	it('should escape the subject field', function (){
-		var data_single = {subject: "This are 'some' quotes"};
-		var data_double = {subject: 'This are "some" quotes'};
+		var dataSingle = {subject: 'This are some quotes'};
+		var dataDouble = {subject: 'This are "some" quotes'};
 
-		var url_single = shareLink.email(data_single);
-		var url_double = shareLink.email(data_double);
+		var urlSingle = shareLink.email(dataSingle);
+		var urlDouble = shareLink.email(dataDouble);
 
-		expect(decodeURI(url_single)).to.equal('mailto:?subject='+data_single.subject);
-		expect(decodeURI(url_double)).to.equal('mailto:?subject='+data_double.subject);
+		expect(decodeURI(urlSingle)).to.equal('mailto:?subject='+dataSingle.subject);
+		expect(decodeURI(urlDouble)).to.equal('mailto:?subject='+dataDouble.subject);
 	});
 	it('should escape the body field', function (){
-		var data_single = {body: "This are 'some' quotes"};
-		var data_double = {body: 'This are "some" quotes'};
+		var dataSingle = {body: 'This are "some" quotes'};
+		var dataDouble = {body: 'This are "some" quotes'};
 
-		var url_single = shareLink.email(data_single);
-		var url_double = shareLink.email(data_double);
+		var urlSingle = shareLink.email(dataSingle);
+		var urlDouble = shareLink.email(dataDouble);
 
-		expect(decodeURI(url_single)).to.equal('mailto:?body='+data_single.body);
-		expect(decodeURI(url_double)).to.equal('mailto:?body='+data_double.body);
+		expect(decodeURI(urlSingle)).to.equal('mailto:?body='+dataSingle.body);
+		expect(decodeURI(urlDouble)).to.equal('mailto:?body='+dataDouble.body);
 	});
 	it('should create an entire entity', function (){
 		var optsMail = {
@@ -54,12 +54,12 @@ describe('Service "ShareLink" Email', function (){
 			cc:      'sometwo@bar.foo',
 			bcc:     'anotherone@bar.foo',
 			subject: 'Some "subject" text here',
-			body:    "Some body 'message' here"
+			body:    'Some body message here'
 		};
 
 		var url = shareLink.email(optsMail);
 
-		expect(url).to.equal("mailto:someone@foo.bar?cc=sometwo@bar.foo&bcc=anotherone@bar.foo&subject=Some%20%22subject%22%20text%20here&body=Some%20body%20'message'%20here");
+		expect(url).to.equal('mailto:someone@foo.bar?cc=sometwo@bar.foo&bcc=anotherone@bar.foo&subject=Some%20%22subject%22%20text%20here&body=Some%20body%20message%20here');
 	});
 });
 
